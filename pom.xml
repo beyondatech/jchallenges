@@ -71,6 +71,8 @@
           <compilerArgs>
             <arg>-parameters</arg>
           </compilerArgs>
+                <source>14</source>
+                <target>14</target>
         </configuration>
       </plugin>
       <plugin>
