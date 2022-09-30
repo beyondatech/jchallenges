@@ -11,9 +11,9 @@ public class GithubRepositoryTopicsResourceTest {
     @Test
     void should_get_topics_of_jchallenges() {
         given()
-                .when().get("/topics/{owner}/{repo}", "beyondatech", "jchallenges")
+                .when().get("/{owner}/{repo}/topics", "beyondatech", "jchallenges")
                 .then()
                 .statusCode(200)
-                .body("$",containsInAnyOrder("java","quarkus","reactive"));
+                .body("$", containsInAnyOrder("java", "quarkus", "reactive"));
     }
 }
