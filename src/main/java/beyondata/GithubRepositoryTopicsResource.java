@@ -20,7 +20,7 @@ public class GithubRepositoryTopicsResource {
     @Path("/{owner}/{repo}")
     @Produces(MediaType.TEXT_PLAIN)
     public Uni<List<String>> index(String owner,  String repo) {
-        // TODO try to implement this method to pass test case GithubRepositoryTopicsResourceTest
+        //https://api.github.com/repos/beyondatech/jchallenges/topics
         throw new UnsupportedOperationException();
     }
 }
