@@ -19,7 +19,6 @@ public class SuccResource {
         if (input == null || input.length() == 0) {
             return newStr.toString();
         }
-
         if ("AA".equals(input)) {
             return "AB";
         }
