@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 @Path("/topics")
 public class GithubRepositoryTopicsResource {
 
+    // TODO 使用内置的 vertx 创建的http客户端访问远程会卡主
     static Vertx vertx;
     static HttpClient httpClient;
     @ConfigProperty(name = "github.token")
