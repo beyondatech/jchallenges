@@ -26,13 +26,14 @@ public class SuccResource {
      * @param ch
      *      要转换的字符
      * @return
+     *      转换后的字符
      */
     private String transform(char ch){
         String str = StringUtil.EMPTY_STRING;
         if (isChar(ch)) {
            str = ch == 'z' || ch == 'Z' ? asciiToString(ch - 25) + asciiToString(ch - 25) : asciiToString(ch + 1);
         } else if (isNumber(ch)) {
-           int num = Integer.parseInt(String.valueOf(ch));
+           int num = Character.getNumericValue(ch);
            str = String.valueOf(++num);
         }
         return str;
