@@ -15,37 +15,26 @@ public class SuccResource {
     @Path("/{input}")
     @Produces(MediaType.TEXT_PLAIN)
     public String index(String input) {
-        StringBuilder newStr = new StringBuilder(StringUtil.EMPTY_STRING);
-        if (input == null || input.length() == 0) {
-            return newStr.toString();
-        }
-        if ("AA".equals(input)) {
-            return "AB";
-        }
+        String oneStr = input.substring(0, 1);
+        String twoStr = input.substring(1);
+        String tranTwoStr = transform(twoStr);
+        return tranTwoStr.length() > 1 ? transform(oneStr) + tranTwoStr.substring(1) : oneStr + tranTwoStr;
+    }
 
-        char[] chars = input.toCharArray();
-        char oneChar = chars[0];
-        char twoChar = chars[1];
-
-        if (oneChar == '9') {
-            newStr.append("10");
-        } else  if (oneChar == 'z' || oneChar == 'Z') {
-            char cc = (char)(oneChar - 25);
-            newStr.append(cc).append(cc);
-        } else {
-            char cc = (char)(oneChar + 1);
-            newStr.append(cc);
+    /**
+     * 字符对应关系
+     * @param str
+     *  要替换的字符
+     * @return
+     */
+    private String transform(String str){
+        switch (str) {
+            case "a" : return "b";
+            case "9" : return "10";
+            case "z" : return "aa";
+            case "A" : return "B";
+            case "Z" : return "AA";
+            default: return StringUtil.EMPTY_STRING;
         }
-
-        if (twoChar == '9') {
-            newStr.append("0");
-        } else  if (twoChar == 'z' || twoChar == 'Z') {
-            char cc = (char)(twoChar - 25);
-            newStr.append(cc);
-        } else {
-            char cc = (char)(twoChar + 1);
-            newStr.append(cc);
-        }
-        return newStr.toString();
     }
 }
