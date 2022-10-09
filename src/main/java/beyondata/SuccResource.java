@@ -15,26 +15,33 @@ public class SuccResource {
     @Path("/{input}")
     @Produces(MediaType.TEXT_PLAIN)
     public String index(String input) {
-        String oneStr = input.substring(0, 1);
-        String twoStr = input.substring(1);
+        char[] chars = input.toCharArray();
+        char oneStr = chars[0];
+        char twoStr = chars[1];
         String tranTwoStr = transform(twoStr);
         return tranTwoStr.length() > 1 ? transform(oneStr) + tranTwoStr.substring(1) : oneStr + tranTwoStr;
     }
 
     /**
      * 字符对应关系
-     * @param str
+     * @param ch
      *  要替换的字符
      * @return
      */
-    private String transform(String str){
-        switch (str) {
-            case "a" : return "b";
-            case "9" : return "10";
-            case "z" : return "aa";
-            case "A" : return "B";
-            case "Z" : return "AA";
-            default: return StringUtil.EMPTY_STRING;
-        }
+    private String transform(char ch){
+        StringBuilder str = new StringBuilder();
+        // 英文字符 a->b b->c ..  z-aa 大写同理
+       if ((ch >= 65 && ch <= 90) || (ch >= 97 && ch <= 122)) {
+           if (ch == 90 || ch == 122) {
+               str.append((char)(ch - 25)).append((char)(ch - 25));
+           } else {
+               str.append((char)(ch + 1));
+           }
+       // 数字直接加1
+       } else if (ch >= 48 && ch <= 57) {
+           Integer integer = Integer.valueOf(String.valueOf(ch));
+           str.append(++integer);
+       }
+       return str.toString();
     }
 }
