@@ -10,6 +10,6 @@ import javax.ws.rs.PathParam;
 @RegisterRestClient(configKey = "github-client")
 public interface GithubClient {
     @GET
-    @Path("/repos/{owner}/{repo}/topics")
+    @Path("/repos/{owner}/{repo}")
     Topics getTopics(@PathParam("owner") String owner, @PathParam("repo") String repo);
 }

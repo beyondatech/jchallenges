@@ -2,7 +2,7 @@ package beyondata;
 
 
 import beyondata.client.GithubClient;
-import beyondata.response.Topics;
+import io.smallrye.common.annotation.Blocking;
 import io.smallrye.mutiny.Uni;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
@@ -21,15 +21,13 @@ public class GithubRepositoryTopicsResource {
     String token;
 
     @RestClient
-    @Inject
     GithubClient countriesService;
 
     @GET
     @Path("/{owner}/{repo}")
     @Produces(MediaType.APPLICATION_JSON)
+    @Blocking
     public Uni<List<String>> index(String owner,  String repo) {
-        //https://api.github.com/repos/beyondatech/jchallenges/topics
-        Topics topics = countriesService.getTopics(owner, repo);
-        return Uni.createFrom().item(topics.getNames());
+        return Uni.createFrom().item(() -> {return countriesService.getTopics(owner, repo).getTopics();});
     }
 }
