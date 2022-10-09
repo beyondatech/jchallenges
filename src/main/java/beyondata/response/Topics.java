@@ -6,7 +6,6 @@ public class Topics {
     private List<String> topics;
 
     public List<String> getTopics() {
-        System.out.println(2);
         return topics;
     }
 
