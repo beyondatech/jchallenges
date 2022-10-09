@@ -15,33 +15,42 @@ public class SuccResource {
     @Path("/{input}")
     @Produces(MediaType.TEXT_PLAIN)
     public String index(String input) {
-        char[] chars = input.toCharArray();
-        char oneStr = chars[0];
-        char twoStr = chars[1];
+        char oneStr = input.charAt(0);
+        char twoStr = input.charAt(1);
         String tranTwoStr = transform(twoStr);
         return tranTwoStr.length() > 1 ? transform(oneStr) + tranTwoStr.substring(1) : oneStr + tranTwoStr;
     }
 
     /**
-     * 字符对应关系
+     * 根据规则转换
      * @param ch
-     *  要替换的字符
+     *      要转换的字符
      * @return
      */
     private String transform(char ch){
-        StringBuilder str = new StringBuilder();
-        // 英文字符 a->b b->c ..  z-aa 大写同理
-       if ((ch >= 65 && ch <= 90) || (ch >= 97 && ch <= 122)) {
-           if (ch == 90 || ch == 122) {
-               str.append((char)(ch - 25)).append((char)(ch - 25));
-           } else {
-               str.append((char)(ch + 1));
-           }
-       // 数字直接加1
-       } else if (ch >= 48 && ch <= 57) {
-           Integer integer = Integer.valueOf(String.valueOf(ch));
-           str.append(++integer);
-       }
-       return str.toString();
+        String str = StringUtil.EMPTY_STRING;
+        if (isChar(ch)) {
+           str = ch == 'z' || ch == 'Z' ? asciiToString(ch - 25) + asciiToString(ch - 25) : asciiToString(ch + 1);
+        } else if (isNumber(ch)) {
+           int num = Integer.parseInt(String.valueOf(ch));
+           str = String.valueOf(++num);
+        }
+        return str;
+    }
+
+    private String asciiToString(int ascii) {
+        return String.valueOf((char)ascii);
+    }
+
+    private boolean isChar(char ch) {
+        return inSection(ch, 'a', 'z') || inSection(ch, 'A', 'Z');
+    }
+
+    private boolean isNumber(char ch) {
+        return inSection(ch, '0', '9');
+    }
+
+    private boolean inSection(char ch, char minChar, char maxChar) {
+        return ch >= minChar && ch <= maxChar;
     }
 }
