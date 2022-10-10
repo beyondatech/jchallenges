@@ -18,7 +18,7 @@ public class SuccResource {
         char oneStr = input.charAt(0);
         char twoStr = input.charAt(1);
         String tranTwoStr = transform(twoStr);
-        return tranTwoStr.length() > 1 ? transform(oneStr) + tranTwoStr.substring(1) : oneStr + tranTwoStr;
+        return tranTwoStr.length() > 1 ? transform(oneStr) + tranTwoStr.substring(1, 2) : oneStr + tranTwoStr;
     }
 
     /**
@@ -31,7 +31,7 @@ public class SuccResource {
     private String transform(char ch){
         String str = StringUtil.EMPTY_STRING;
         if (isChar(ch)) {
-           str = ch == 'z' || ch == 'Z' ? asciiToString(ch - 25) + asciiToString(ch - 25) : asciiToString(ch + 1);
+           str = ch == 'z' || ch == 'Z' ? asciiToString(ch - 25) + asciiToString(ch - 25) : asciiToString(++ch);
         } else if (isNumber(ch)) {
            int num = Character.getNumericValue(ch);
            str = String.valueOf(++num);
