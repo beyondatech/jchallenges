@@ -18,48 +18,28 @@ public class SuccResource {
     }
 
     private static String transform(String input) {
-        if (input == null || "".equals(input) || input.length() != 2) {
-            return input;
-        }
         char l = input.charAt(0);
         char r = input.charAt(1);
-        if (!Character.isLetterOrDigit(l) || !Character.isLetterOrDigit(r)) {
-            return input;
-        }
-        boolean rightIsNum = Character.isDigit(r);
-        boolean rightIsUpperCase = Character.isUpperCase(r);
-        String left;
-        String right;
-        boolean overflow = false;
-        if (rightIsNum) {
-            int rr = Character.getNumericValue(r) + 1;
-            if (rr > 9) {
-                overflow = true;
-                rr = 0;
-            }
-            right = rr + "";
-        } else {
-            char rr;
-            if (r == 'Z' || r == 'z') {
-                overflow = true;
-                rr = rightIsUpperCase ? 'A' : 'a';
+        char rr = (char) (r + 1);
+        String left = l + "";
+        String right = rr + "";
+        if (!Character.isLetterOrDigit(rr)) {
+            if (r == '9') {
+                right = "0";
             } else {
-                rr = (char) (r + 1);
+                right = (char) (r - 25) + "";
             }
-            right = rr + "";
-        }
-        if (overflow) {
-            if (Character.isDigit(l)) {
-                left = Character.getNumericValue(l) + 1 + "";
+            char ll = (char) (l + 1);
+            if (Character.isLetterOrDigit(ll)) {
+                left = ll + "";
             } else {
-                if (l == 'Z' || l == 'z') {
-                    left = Character.isUpperCase(l) ? "AA" : "aa";
+                if (l == '9') {
+                    left = "10";
                 } else {
-                    left = (char) (l + 1) + "";
+                    ll = (char) (l - 25);
+                    left = ll + "" + ll;
                 }
             }
-        } else {
-            left = l + "";
         }
         return left + right;
     }
