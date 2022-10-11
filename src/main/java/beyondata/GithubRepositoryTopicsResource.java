@@ -16,7 +16,9 @@ import java.util.List;
 
 @Path("/topics")
 public class GithubRepositoryTopicsResource {
-
+    /**
+     * 请更换自己的token
+     */
     @ConfigProperty(name = "github.token")
     String token;
     @ConfigProperty(name = "github.url")
