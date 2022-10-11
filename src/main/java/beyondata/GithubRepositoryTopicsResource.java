@@ -30,6 +30,7 @@ public class GithubRepositoryTopicsResource {
         // TODO try to implement this method to pass test case GithubRepositoryTopicsResourceTest
 
         OkHttpClient okHttpClient = new OkHttpClient();
+        // 创建请求参数
         Request request = new Request.Builder()
                 .addHeader("Accept","application/vnd.github+json")
                 .addHeader("Authorization", "Bearer " + token)
@@ -37,8 +38,11 @@ public class GithubRepositoryTopicsResource {
                 .get()
 //                .post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), ""))
                 .build();
+        // 发送请求并获取响应体
         String string = okHttpClient.newCall(request).execute().body().string();
         JSONObject resultJson = JSONObject.parseObject(string);
+        // 判断转换后的json对象是否有效且是否包含 names 键
+        // 不包含 names 返回空数组
         if(null != resultJson && resultJson.containsKey("names")){
             List<String> list = resultJson.getList("names", String.class);
             return Uni.createFrom().item(list);
