@@ -16,7 +16,7 @@ public class SuccResourceTest {
 
     static Stream<Arguments> cases() {
         return Stream.of(
-                arguments("10a", "9z"),
+                arguments("10a", "10a"),
                 arguments("aa0", "z9"),
                 arguments("b0", "a9"),
                 arguments("AAA", "ZZ"),

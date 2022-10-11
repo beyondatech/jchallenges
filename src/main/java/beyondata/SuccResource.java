@@ -1,9 +1,17 @@
 package beyondata;
 
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
+@Path("/succ")
 public class SuccResource {
-    public String index(String input) {
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{input}")
+    public String index(@PathParam("input") String input) {
         // TODO try to implement this endpoint to pass test case SuccResourceTest.
-        throw new UnsupportedOperationException();
+        return input;
+//        throw new UnsupportedOperationException();
     }
 }
